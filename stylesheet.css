@@ -18,3 +18,7 @@ button {
 #confirmation {
 	display:none;
 }
+
+#timestamp {
+	font: italic;
+}

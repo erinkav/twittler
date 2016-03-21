@@ -17,7 +17,7 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message + ' Posted on: '+tweet.created_at);
+          $tweet.html('<p id="username"> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
           $tweet.appendTo($feed);
           index -= 1;
         }
@@ -29,12 +29,10 @@
           generateRandomTweet(); 
           var latestTweet = streams.home[streams.home.length-1];
           var $latestTweet = $('<div></div>');
-          $latestTweet.text('@'+latestTweet.user+':'+latestTweet.message + ' Posted on: '+latestTweet.created_at);
- 
+          $latestTweet.html('<a id="tweet"> @' + latestTweet.user + ': ' + latestTweet.message + '\n </a><p>Posted on: '+latestTweet.created_at+'</p>');
           $latestTweet.prependTo($feed);
-          console.log(latestTweet);
 
-           }); 
+        }); 
 
           // console.log("Clicked");
           // $("#confirmation").css('display', 'inline-block');
@@ -44,7 +42,14 @@
           // index++;
           // $newTweet.appendTo($feed); 
 
-
+        $("#username").on('click', function () {
+          if (tweet.user === 'shawndrost') {
+            console.log(streams.users.shawndrost);
+          } else if(tweet.user === 'sharksforcheap') {
+            console.log(streams.users.sharksforcheap);
+          }
+          console.log(streams.users);
+        }); 
         var following = $('<p></p>');
         $("#followers").before(following);
 
@@ -55,12 +60,6 @@
       <button type='button' class="btn btn-lg btn-success">
         See Latest Tweets
       </button>
-      <p id="confirmation">
-        Updated!
-      </p>
-    </div>
-    <div id="latest">
-
     </div>
     <div class='container'>
       <div id="feed" class="col-sm-8">
