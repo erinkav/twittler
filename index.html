@@ -17,14 +17,23 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.html('<p id="username"> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
+          $tweet.html('<p id="'+ tweet.user+'""> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
           $tweet.appendTo($feed);
           index -= 1;
         }
 
+        var $userFeed = $('#profile');
+        $userFeed.html(''); 
+        var userNum = users.length;
+        while(userNum >= 0){
+          var profile = users[userNum];
+          var $profile = $('<div></div>');
+          $profile.html(profile); 
+          $profile.appendTo('#user-feeds'); 
+          userNum = userNum -1;
+        }
 
-        // var latestTweets = $('#latest');
-        // $latestTweets.html('');
+
         $("button").on('click', function() { 
           generateRandomTweet(); 
           var latestTweet = streams.home[streams.home.length-1];
@@ -41,18 +50,21 @@
           // $newTweet.text(streams.home.length-1);
           // index++;
           // $newTweet.appendTo($feed); 
-
-        $("#username").on('click', function () {
-          if (tweet.user === 'shawndrost') {
-            console.log(streams.users.shawndrost);
-          } else if(tweet.user === 'sharksforcheap') {
-            console.log(streams.users.sharksforcheap);
+        var showAll = function (obj) {
+          if (obj[user] === tweet.user) {
+            console.log(yes); 
           }
-          console.log(streams.users);
-        }); 
-        var following = $('<p></p>');
-        $("#followers").before(following);
+        };
 
+        $("#shawndrost").on('click', function () {
+          console.log(streams.users.shawndrost);
+          // if (tweet.user === 'shawndrost') {
+          //   console.log(showAll(streams.users.shawndrost));
+          //   console.log('shawndrost');
+          // } else if(tweet.user === 'sharksforcheap') {
+          //   console.log(streams.users.sharksforcheap);
+          // }
+        }); 
       });
     </script>
     <div id="title" class="jumbotron">
@@ -66,14 +78,8 @@
       </div>
       <div id="followers" class="col-sm-4">
         <h2 class="lead">Following</h2>
-        <ul>
-          <li>
-            Person 1
-          </li>
-          <li>
-            Person 2
-          </li>
-        </ul>
+      </div>
+      <div id="user-feeds">
       </div>
     </div>
   </body>
