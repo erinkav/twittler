@@ -1,5 +1,5 @@
 #title {
-	background-image: url('http://www.doz.com/cms/wp-content/uploads/2014/05/twitter.png');
+	background: linear-gradient(to bottom, #1e689a 0%,#2aa1d8 0%,#2091ca 100%,#7ec8e8 100%);
 
 }
 button {
@@ -13,4 +13,8 @@ button {
 
 .following {
 	float: right;
+}
+
+#confirmation {
+	display:none;
 }

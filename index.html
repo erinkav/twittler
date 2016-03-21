@@ -10,7 +10,7 @@
     <script>
 
       $(document).ready(function(){
-        var $feed = $('#feed');
+         var $feed = $('#feed');
         $feed.html('');
 
         var index = streams.home.length - 1;
@@ -22,10 +22,31 @@
           index -= 1;
         }
 
+
+        // var latestTweets = $('#latest');
+        // $latestTweets.html('');
+        $("button").on('click', function() { 
+          generateRandomTweet(); 
+          console.log(streams.home[streams.home.length-1]);
+           }); 
+
+          // console.log("Clicked");
+          // $("#confirmation").css('display', 'inline-block');
+          // var newTweet = generateRandomTweet(); 
+          // var $newTweet = $('<div></div>');
+          // $newTweet.text(streams.home.length-1);
+          // index++;
+          // $newTweet.appendTo($feed); 
+
+
+        var following = $('<p></p>');
+        $("#followers").before(following);
+
         var addNew = function() {      
           $tweet.text(generateRandomTweet());
           $tweet.appendTo($feed);
         };
+
       });
     </script>
     <div id="title" class="jumbotron">
@@ -33,6 +54,12 @@
       <button type='button' class="btn btn-lg btn-success">
         See Latest Tweets
       </button>
+      <p id="confirmation">
+        Updated!
+      </p>
+    </div>
+    <div id="latest">
+
     </div>
     <div class='container'>
       <div id="feed" class="col-sm-8">
