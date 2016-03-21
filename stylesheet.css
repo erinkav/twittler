@@ -1,0 +1,16 @@
+#title {
+	background-image: url('http://www.doz.com/cms/wp-content/uploads/2014/05/twitter.png');
+
+}
+button {
+	color: green;
+	font: bold;
+}
+
+#feed {
+	float: left;
+}
+
+.following {
+	float: right;
+}

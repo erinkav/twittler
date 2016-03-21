@@ -3,25 +3,51 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel=stylesheet href="stylesheet.css" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
     <script>
 
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        var $feed = $('#feed');
+        $feed.html('');
 
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          $tweet.appendTo($feed);
           index -= 1;
         }
 
+        var addNew = function() {      
+          $tweet.text(generateRandomTweet());
+          $tweet.appendTo($feed);
+        };
       });
-
     </script>
+    <div id="title" class="jumbotron">
+      <h1>Twitter</h1>
+      <button type='button' class="btn btn-lg btn-success">
+        See Latest Tweets
+      </button>
+    </div>
+    <div class='container'>
+      <div id="feed" class="col-sm-8">
+      </div>
+      <div id="followers" class="col-sm-4">
+        <h2 class="lead">Following</h2>
+        <ul>
+          <li>
+            Person 1
+          </li>
+          <li>
+            Person 2
+          </li>
+        </ul>
+      </div>
+    </div>
   </body>
 </html>
