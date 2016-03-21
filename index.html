@@ -17,7 +17,7 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.html('<p id="'+ tweet.user+'""> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
+          $tweet.html('<p id="username""> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
           $tweet.appendTo($feed);
           index -= 1;
         }
@@ -27,21 +27,115 @@
         var userNum = users.length;
         while(userNum >= 0){
           var profile = users[userNum];
-          var $profile = $('<div></div>');
+          var $profile = $('<div class="username"></div>');
           $profile.html(profile); 
           $profile.appendTo('#user-feeds'); 
           userNum = userNum -1;
         }
+        var getAll = function(list) {
+          var array=[];
+          for(var i=0; i<list.length; i++) {
+            for (list[i] in streams.users) {
+              array.push(streams.users[list[i]]); 
+            }
+          }
+          return array; 
+        };
+        var allUserInfo = $.makeArray(getAll(users));
+
+        var $messageList = $('#messages');
+        $messageList.html = ('');
+        console.log(allUserInfo.length);
+        for(var i=0; i<allUserInfo.length; i++) {
+          var entry = $.makeArray(allUserInfo[i]);
+          for (var j=0; j<entry.length; j++) {
+            var $entry = $('<div class="entry"></div>'); 
+            console.log(entry[j]);
+            console.log(typeof entry[j]); 
+            $entry.html('<p> @'+entry[j].user+' posted '+entry[j].created_at+": "+entry[j].message+'</p>');
+            $entry.appendTo("#messages");
+          }
+
+        }
+        // // var numMessages = function (coll) {
+        //   var array = [];
+        //   var count = 0;
+        //   for(var users in coll) {
+        //     for(var user in coll[users]) {
+        //       for (message in coll[users][user]) {
+        //         count++;
+        //         console.log(count)
+        //         array.push(coll[users][user]); 
+        //         console.log(array);                
+        //       }
+        //     }
+        //   }
+        //     return count;
+        // }; 
+          
+        // numMessages(streams.users); 
+
+
+        // function arrayOfMsg (coll) {
+        //   var array = [];
+        //   for(users in coll) {
+        //     console.log(coll[users]);
+        //     for (var key in coll) {
+        //       array.push(coll[key].message);
+        //     }
+        //   }
+        //   console.log(streams.users.douglascalhoun);
+        // }; 
+        // $()
+        // arrayOfMsg(streams); 
+        // var $userMessages = $('#messages');
+        // $userMessages.html('');
+        // while(numMessages<0) {
+        //   var messsage = streams.users.
+        // }
 
 
         $("button").on('click', function() { 
           generateRandomTweet(); 
-          var latestTweet = streams.home[streams.home.length-1];
-          var $latestTweet = $('<div></div>');
-          $latestTweet.html('<a id="tweet"> @' + latestTweet.user + ': ' + latestTweet.message + '\n </a><p>Posted on: '+latestTweet.created_at+'</p>');
-          $latestTweet.prependTo($feed);
-
+          tweet = streams.home[streams.home.length-1];
+          $tweet = $('<div></div>');
+          $tweet.html('<p id="username""> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
+          $tweet.prependTo($feed);
         }); 
+        // var $userMessages = $('#hidden-profiles');
+        // $userMessages.html('');
+
+        $('#username').on('click', function() {
+          $('#messages').toggle("slow");
+        });
+          // $.each(window.users, function(name) {
+          //   console.log(streams.users[name]);
+          //   $.each(streams.users[name], function(val) {
+          //     console.log(streams.users[name][val].message); 
+          //   })
+          // }); 
+          // var messages;
+          // var $messages = $('<div></div>'); 
+          // if(tweet.user === "shawndrost") {
+          //   $.each(streams.users.shawndrost, function(item) {
+          //     messages = streams.users.shawndrost[item].message; 
+          //   });
+          // } else if (tweet.user === "sharksforcheap") {
+          //   $.each(streams.users.sharksforcheap, function(item) {
+          //     messages = streams.users.sharksforcheap[item].message; 
+          //   });
+          // } else if (tweet.user === "douglascalhoun") {
+          //   $.each(streams.users.douglascalhoun, function(item) {
+          //     messages = streams.users.douglascalhoun[item].message; 
+          //   });
+          // } else if (tweet.user === "mracus") {
+          //   $.each(streams.users.mracus, function(item) {
+          //     messages = streams.users.mracus[item].message; 
+          //   });
+          // }
+          // $messages.html(messages);
+          // $messages.after("#timestamp");
+
 
           // console.log("Clicked");
           // $("#confirmation").css('display', 'inline-block');
@@ -50,21 +144,21 @@
           // $newTweet.text(streams.home.length-1);
           // index++;
           // $newTweet.appendTo($feed); 
-        var showAll = function (obj) {
-          if (obj[user] === tweet.user) {
-            console.log(yes); 
-          }
-        };
+        // var showAll = function (obj) {
+        //   if (obj[user] === tweet.user) {
+        //     console.log(yes); 
+        //   }
+        // };
 
-        $("#shawndrost").on('click', function () {
-          console.log(streams.users.shawndrost);
+        // $("#shawndrost").on('click', function () {
+        //   console.log(streams.users.shawndrost);
           // if (tweet.user === 'shawndrost') {
           //   console.log(showAll(streams.users.shawndrost));
           //   console.log('shawndrost');
           // } else if(tweet.user === 'sharksforcheap') {
           //   console.log(streams.users.sharksforcheap);
           // }
-        }); 
+        // }); 
       });
     </script>
     <div id="title" class="jumbotron">
@@ -72,6 +166,8 @@
       <button type='button' class="btn btn-lg btn-success">
         See Latest Tweets
       </button>
+    </div>
+    <div class = "col-sm-3"id="messages">
     </div>
     <div class='container'>
       <div id="feed" class="col-sm-8">
