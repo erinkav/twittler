@@ -91,6 +91,7 @@
           
         }); 
         $(".shawndrost").on('click',  function () {
+          $("#messages").empty();
           generateProf(allUsersMsgs('shawndrost')); 
           
         }); 
@@ -116,9 +117,7 @@
     </div>
     <div class='container'>
       <div id="feed" class="col-sm-6">
-      </div>
-      <div id="followers" >
-
+        
       </div>
       <div id="user-feeds" class="col-sm-2">
          <h2 class="lead">Following</h2>
