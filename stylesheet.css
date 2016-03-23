@@ -1,8 +1,18 @@
-#title {
-	background: linear-gradient(to bottom, #1e689a 0%,#2aa1d8 0%,#2091ca 100%,#7ec8e8 100%);
+#top {
+	background: #5bc0de;
+	text-align: center;
 
 }
+
+#top h1 {
+	text-align: center;
+}
+
 button {
+	width: 200px;
+}
+
+#update {
 	color: green;
 	font: bold;
 }
@@ -15,10 +25,11 @@ button {
 	float: right;
 }
 
-#confirmation {
-	display:none;
-}
-
 #timestamp {
 	font: italic;
+}
+
+#user-feeds {
+	margin: 20px;
+	border: white 1px;
 }

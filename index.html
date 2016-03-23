@@ -17,7 +17,7 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.html('<p id="username" class="'+tweet.user+'"> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
+          $tweet.html('<a id="username" class="'+tweet.user+'"> @' + tweet.user + '</a><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
           $tweet.appendTo($feed);
           $tweet.data("user", tweet.user);
           index -= 1;
@@ -28,11 +28,28 @@
         var userNum = users.length;
         while(userNum >= 0){
           var profile = users[userNum];
-          var $profile = $('<div class="username"></div>');
+          var $profile = $('<div class="username" id="'+profile+'"></div>');
           $profile.html(profile); 
           $profile.appendTo('#user-feeds'); 
           userNum = userNum -1;
         }
+
+        var getUsersMsg = function(obj) {
+          var array = []; 
+          for (var i =0; i<obj.length; i++) {
+            if(typeof obj[i] === 'undefined') continue;
+            else {
+               array.push(obj[i]);              
+            }
+
+          }
+          return array; 
+        };
+
+        var allUsersMsgs = function (name) {
+          var result = getUsersMsg(streams.users[name]);
+          return result; 
+        }; 
 
         var getAll = function(list) {
           var array=[];
@@ -45,55 +62,66 @@
         };
 
         var allUserInfo = $.makeArray(getAll(users));
-
-        var $messageList = $('#messages');
-        $messageList.html = ('');
-        for(var i=0; i<allUserInfo.length; i++) {
-          var entry = $.makeArray(allUserInfo[i]);
-          for (var j=0; j<entry.length; j++) {
-            var $entry = $('<div class="entry"></div>'); 
-            $entry.html('<p id="username" class="'+entry[j].user +'"> @'+entry[j].user+' posted '+entry[j].created_at+": "+entry[j].message+'</p>');
-            $entry.data("user", entry[j].user);
-            $entry.appendTo("#messages");
-          }
-        }
+        var generateProf = function(obj)  {     
+            var $messageList = $('#messages');
+            $messageList.html = ('');
+            for(var i=0; i<obj.length; i++) {
+              var entry = $.makeArray(obj[i]);
+              for (var j=0; j<entry.length; j++) {
+                var $entry = $('<div class="entry"></div>'); 
+                $entry.html('<a id="username" class="'+entry[j].user +'"> @'+entry[j].user+'</a><p class = "tweet"> posted '+entry[j].created_at+": "+entry[j].message+'</p>');
+                $entry.data("user", entry[j].user);
+                $entry.appendTo("#messages");
+              }
+            }
+          };
 
         $("button").on('click', function() { 
           generateRandomTweet(); 
           tweet = streams.home[streams.home.length-1];
           $tweet = $('<div></div>');
-          $tweet.html('<p id="username" class="'+tweet.user+'""> @' + tweet.user + '</p><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
+          $tweet.html('<a id="username" class="'+tweet.user+'""> @' + tweet.user + '</a><p id="tweet">: ' + tweet.message + '\n </p><p id="timestamp">Posted on: '+tweet.created_at+'</p>');
           $tweet.data("user", tweet.user);
           $tweet.prependTo($feed);
         }); 
 
-        var show = document.getElementsById("#")
-        $('#username').on('click', function() {
-          $("#messages").toggle();
-        });
-        
-        // $("#username").on('click', function () {
-        //   if($("#username").data("user") === "shawndrost") {
-        //     $("#user-feeds").css("display", "in-line");
-        //   }
-        // });
+        $(".mracus").on('click',  function () {
+          $("#messages").empty();
+          generateProf(allUsersMsgs('mracus')); 
+          
+        }); 
+        $(".shawndrost").on('click',  function () {
+          generateProf(allUsersMsgs('shawndrost')); 
+          
+        }); 
+        $(".sharksforcheap").on('click',  function () {
+          $("#messages").empty();
+          generateProf(allUsersMsgs('sharksforcheap')); 
+          
+        }); 
+        $(".douglascalhoun").on('click',  function () {
+          $("#messages").empty();
+          generateProf(allUsersMsgs('douglascalhoun')); 
+          
+        });                 
       });
     </script>
-    <div id="title" class="jumbotron">
+    <div id="top" class="jumbotron">
       <h1>Twitter</h1>
-      <button type='button' class="btn btn-lg btn-success">
+      <button type='button' id="update" class="btn btn-lg btn-success">
         See Latest Tweets
       </button>
     </div>
-    <div class = "col-sm-3"id="messages">
+    <div class = "col-sm-4"id="messages">
     </div>
     <div class='container'>
-      <div id="feed" class="col-sm-8">
+      <div id="feed" class="col-sm-6">
       </div>
-      <div id="followers" class="col-sm-4">
-        <h2 class="lead">Following</h2>
+      <div id="followers" >
+
       </div>
-      <div id="user-feeds">
+      <div id="user-feeds" class="col-sm-2">
+         <h2 class="lead">Following</h2>
       </div>
     </div>
   </body>
